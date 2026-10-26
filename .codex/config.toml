@@ -1,0 +1,5 @@
+# Project-local Codex overrides.
+# Intentionally empty: inherit existing user and managed settings.
+# Add only settings required by this project; keep credentials elsewhere.
+# Codex loads this file only when the project is trusted.
+# Reference: https://learn.chatgpt.com/docs/config-file/config-basic
