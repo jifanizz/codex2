@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A quick look at what Codex can help you create." />
+    <title>Codex — Your creative co-pilot</title>
+    <style>
+      :root {
+        --ink: #100d1d;
+        --panel: rgba(32, 25, 54, .72);
+        --line: rgba(255, 255, 255, .12);
+        --text: #f9f7ff;
+        --muted: #b9b2ce;
+        --purple: #a879ff;
+        --orange: #ff9949;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--text);
+        background: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        overflow-x: hidden;
+      }
+      body::before, body::after {
+        content: ""; position: fixed; z-index: -1; border-radius: 50%; filter: blur(4px); opacity: .52;
+      }
+      body::before { width: 42rem; height: 42rem; top: -21rem; left: -14rem; background: radial-gradient(circle, #6d36ce, transparent 68%); }
+      body::after { width: 40rem; height: 40rem; right: -17rem; top: 18rem; background: radial-gradient(circle, #bd4f16, transparent 67%); }
+      .wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+      nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
+      .brand { display: flex; gap: 10px; align-items: center; font-weight: 800; letter-spacing: -.03em; }
+      .mark { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 9px; background: linear-gradient(135deg, var(--purple), var(--orange)); color: #170e24; }
+      .status { color: var(--muted); font-size: .86rem; }
+      .status i { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #9be69a; box-shadow: 0 0 10px #9be69a; }
+      .hero { padding: 86px 0 74px; max-width: 800px; }
+      .eyebrow { color: var(--orange); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 800; }
+      h1 { margin: 18px 0 20px; font-size: clamp(3rem, 8vw, 6.7rem); line-height: .94; letter-spacing: -.075em; }
+      h1 em { font-style: normal; background: linear-gradient(100deg, #c79bff 20%, #ffb168 78%); -webkit-background-clip: text; color: transparent; }
+      .lead { max-width: 620px; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.65; color: var(--muted); }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
+      a.button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 18px; border: 1px solid var(--line); border-radius: 999px; color: inherit; text-decoration: none; font-weight: 700; }
+      a.button.primary { border: 0; color: #1c1024; background: linear-gradient(100deg, var(--purple), var(--orange)); }
+      main { padding-bottom: 62px; }
+      .section-label { display: flex; align-items: center; gap: 16px; margin: 0 0 20px; font-size: .8rem; font-weight: 800; letter-spacing: .13em; color: var(--muted); text-transform: uppercase; }
+      .section-label::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+      .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+      .card { position: relative; overflow: hidden; min-height: 217px; padding: 25px; border: 1px solid var(--line); border-radius: 19px; background: linear-gradient(135deg, rgba(50, 39, 79, .82), var(--panel)); transition: transform .2s ease, border-color .2s ease; }
+      .card:hover { transform: translateY(-4px); border-color: rgba(199, 155, 255, .58); }
+      .card:nth-child(1), .card:nth-child(4) { grid-column: span 7; }
+      .card:nth-child(2), .card:nth-child(3) { grid-column: span 5; }
+      .number { position: absolute; right: 20px; top: 16px; font: 800 3.2rem/1 Georgia, serif; color: rgba(255,255,255,.08); }
+      .icon { font-size: 1.42rem; display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(255,153,73,.12); }
+      .card:nth-child(even) .icon { background: rgba(168,121,255,.16); }
+      h2 { margin: 20px 0 8px; font-size: 1.31rem; letter-spacing: -.035em; }
+      .card p { max-width: 36ch; margin: 0; color: var(--muted); line-height: 1.55; font-size: .96rem; }
+      .example { display: block; margin-top: 15px; color: #ffc18d; font: .76rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .prompt { margin-top: 14px; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,153,73,.25); background: linear-gradient(100deg, rgba(93,50,91,.75), rgba(100,57,31,.55)); }
+      .prompt p { margin: 6px 0 0; color: #e1d8e9; font-size: clamp(1rem, 2vw, 1.3rem); line-height: 1.45; }
+      code { color: #ffc18d; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      footer { padding: 27px 0 42px; color: var(--muted); font-size: .87rem; }
+      @media (max-width: 650px) {
+        .hero { padding: 62px 0; } .status { display: none; }
+        .card, .card:nth-child(n) { grid-column: span 12; min-height: 190px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav aria-label="Main navigation">
+        <div class="brand"><span class="mark">✦</span> Codex</div>
+        <div class="status"><i></i>Ready when you are</div>
+      </nav>
+      <header class="hero">
+        <div class="eyebrow">One thoughtful collaborator</div>
+        <h1>Bring me the <em>messy middle.</em></h1>
+        <p class="lead">I turn rough ideas, stubborn bugs, and blank canvases into work you can actually use—then help make it better.</p>
+        <div class="actions">
+          <a class="button primary" href="#possibilities">See what we can make <span>→</span></a>
+          <a class="button" href="#try-it">Try a prompt</a>
+        </div>
+      </header>
+      <main>
+        <div class="section-label" id="possibilities">Ways I can help</div>
+        <section class="grid" aria-label="Codex capabilities">
+          <article class="card"><span class="number">01</span><div class="icon">⌘</div><h2>Build software</h2><p>Shape an idea into a working app, website, script, or automation. I can navigate a codebase and make the changes with you.</p><code class="example">“Build a simple habit tracker.”</code></article>
+          <article class="card"><span class="number">02</span><div class="icon">⌕</div><h2>Untangle problems</h2><p>Investigate errors, trace tricky behavior, explain unfamiliar code, and turn vague issues into a clear next move.</p><code class="example">“Why does this test keep failing?”</code></article>
+          <article class="card"><span class="number">03</span><div class="icon">✎</div><h2>Make ideas tangible</h2><p>Draft product copy, plans, docs, presentations, and prototypes with a point of view—not filler.</p><code class="example">“Turn these notes into a launch plan.”</code></article>
+          <article class="card"><span class="number">04</span><div class="icon">↗</div><h2>Move work forward</h2><p>Research options, organize a project, review what exists, and handle the practical details that keep momentum alive.</p><code class="example">“Compare the best tools for this project.”</code></article>
+        </section>
+        <section class="prompt" id="try-it" aria-label="Example prompt">
+          <div class="eyebrow">Start anywhere</div>
+          <p>“<code>I have a half-formed idea for ______. Help me turn it into something real.</code>”</p>
+        </section>
+      </main>
+      <footer>Codex · Ideas deserve a next draft.</footer>
+    </div>
+  </body>
+</html>
